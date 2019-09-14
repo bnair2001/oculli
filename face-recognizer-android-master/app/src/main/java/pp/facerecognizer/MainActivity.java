@@ -29,12 +29,15 @@ import android.graphics.Typeface;
 import android.media.ImageReader.OnImageAvailableListener;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.SystemClock;
+import android.util.Log;
 import android.util.Size;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -280,6 +283,25 @@ public class MainActivity extends CameraActivity implements OnImageAvailableList
                     cropCopyBitmap = Bitmap.createBitmap(croppedBitmap);
                     List<Classifier.Recognition> mappedRecognitions =
                             classifier.recognizeImage(croppedBitmap,cropToFrameTransform);
+
+                    if (!mappedRecognitions.isEmpty() ) {
+                        Boolean recognized = true;
+                        for (Classifier.Recognition rec : mappedRecognitions) {
+                            recognized = rec.isRecognized();
+                            if ( recognized ) {
+                                break;
+                            }
+                        }
+                        if (!recognized) {
+                            new Handler().post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(MainActivity.this, "Not recoginzed", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                            Log.e("RESULT", "Not recognized");
+                        }
+                    }
 
                     lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime;
                     tracker.trackResults(mappedRecognitions, luminanceCopy, currTimestamp);

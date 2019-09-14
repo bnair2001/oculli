@@ -92,6 +92,11 @@ public class Classifier {
             this.location = location;
         }
 
+        public Boolean isRecognized() {
+            return confidence > 0.5;
+        }
+
+
         @Override
         public String toString() {
             String resultString = "";
@@ -170,16 +175,16 @@ public class Classifier {
                 Pair<Integer, Float> pair = svm.predict(buffer);
 
                 matrix.mapRect(rectF);
-                Float prob = pair.second;
+                Float confidence = pair.second;
 
                 String name;
-                if (prob > 0.5)
+                if (confidence > 0.5)
                     name = classNames.get(pair.first);
                 else
                     name = "Unknown";
 
                 Recognition result =
-                        new Recognition("" + pair.first, name, prob, rectF);
+                        new Recognition("" + pair.first, name, confidence, rectF);
                 mappedRecognitions.add(result);
             }
             return mappedRecognitions;
