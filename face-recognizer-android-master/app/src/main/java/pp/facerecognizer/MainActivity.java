@@ -99,6 +99,9 @@ public class MainActivity extends CameraActivity implements OnImageAvailableList
     private boolean initialized = false;
     private boolean training = false;
 
+    static public int RETURN_NAME = 1;
+    private String newUsername = "";
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -238,6 +241,7 @@ public class MainActivity extends CameraActivity implements OnImageAvailableList
         initialized = true;
     }
 
+    Boolean voiceInputActivityOpen = false;
     @Override
     protected void processImage() {
         ++timestamp;
@@ -296,7 +300,12 @@ public class MainActivity extends CameraActivity implements OnImageAvailableList
                             new Handler().post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(MainActivity.this, "Not recoginzed", Toast.LENGTH_LONG).show();
+                                    if (!voiceInputActivityOpen) {
+                                        voiceInputActivityOpen = true;
+                                        Intent intent = new Intent(MainActivity.this, PocketSphinxActivity.class);
+                                        startActivityForResult(intent, RETURN_NAME);
+                                        Toast.makeText(MainActivity.this, "Not recoginzed", Toast.LENGTH_LONG).show();
+                                    }
                                 }
                             });
                             Log.e("RESULT", "Not recognized");
@@ -312,6 +321,7 @@ public class MainActivity extends CameraActivity implements OnImageAvailableList
                 });
     }
 
+
     @Override
     protected int getLayoutId() {
         return R.layout.camera_connection_fragment_tracking;
@@ -324,6 +334,17 @@ public class MainActivity extends CameraActivity implements OnImageAvailableList
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        String output = String.format("onActivityResult: %d: %d\n", requestCode, resultCode);
+        Log.e("onActivityResult", output);
+        if (requestCode == RETURN_NAME) {
+                // A contact was picked.  Here we will just display it
+                // to the user.
+                newUsername = data.getStringExtra("newUsername");
+                output = String.format("onActivityResult: username: %s\n", newUsername);
+                Log.e("onActivityResult", output);
+                Toast.makeText(this, newUsername, Toast.LENGTH_SHORT).show();
+        }
+
         if (!initialized) {
             Snackbar.make(
                     getWindow().getDecorView().findViewById(R.id.container),

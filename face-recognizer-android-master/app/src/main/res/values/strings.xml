@@ -7,4 +7,10 @@
 
     <string name="add_person">add person</string>
     <string name="update_person">update person</string>
+
+    <string name="kws_caption">To start say, \"my name is\".</string>
+    <string name="menu_caption">Say your name now</string>
+    <string name="digits_caption">To try recognition of digits: say something like \"one two three four five\".</string>
+    <string name="forecast_caption">To try recognition of a weather forecast like \"sunny spells on Wednesday\".</string>
+    <string name="phone_caption">Say your name now</string>
 </resources>
