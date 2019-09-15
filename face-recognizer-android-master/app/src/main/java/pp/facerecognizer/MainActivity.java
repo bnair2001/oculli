@@ -35,6 +35,7 @@ import android.util.Log;
 import android.util.Size;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Toast;
@@ -105,7 +106,12 @@ public class MainActivity extends CameraActivity implements OnImageAvailableList
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        final Button backto_main = (Button) findViewById(R.id.buttonee);
+        backto_main.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,ObjActivity.class));
+            }
+        });
         FrameLayout container = findViewById(R.id.container);
         initSnackbar = Snackbar.make(container, "Initializing...", Snackbar.LENGTH_INDEFINITE);
         trainSnackbar = Snackbar.make(container, "Training data...", Snackbar.LENGTH_INDEFINITE);
@@ -339,10 +345,13 @@ public class MainActivity extends CameraActivity implements OnImageAvailableList
         if (requestCode == RETURN_NAME) {
                 // A contact was picked.  Here we will just display it
                 // to the user.
+            return;
+            /*
                 newUsername = data.getStringExtra("newUsername");
                 output = String.format("onActivityResult: username: %s\n", newUsername);
                 Log.e("onActivityResult", output);
                 Toast.makeText(this, newUsername, Toast.LENGTH_SHORT).show();
+                */
         }
 
         if (!initialized) {

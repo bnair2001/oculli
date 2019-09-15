@@ -1,0 +1,5 @@
+gTTS
+torchvision
+numpy
+opencv-python
+Flask
