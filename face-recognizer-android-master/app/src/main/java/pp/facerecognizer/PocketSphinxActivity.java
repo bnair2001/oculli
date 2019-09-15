@@ -112,6 +112,8 @@ public class PocketSphinxActivity extends Activity implements
                 setResult(MainActivity.RETURN_NAME, intent);
                 String output = String.format("setOnClickListener: %s\n", username);
                 Log.e("setOnClickListener", output);
+                Intent myIntent = new Intent(this, Camera.class);
+                startActivity(myIntent);
                 finish();
             }
         );

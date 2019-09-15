@@ -29,8 +29,10 @@ import android.graphics.Typeface;
 import android.media.ImageReader.OnImageAvailableListener;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.util.Size;
 import android.util.TypedValue;
@@ -44,8 +46,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
@@ -60,8 +64,10 @@ import pp.facerecognizer.tracking.MultiBoxTracker;
 * An activity that uses a TensorFlowMultiBoxDetector and ObjectTracker to detect and then track
 * objects.
 */
-public class MainActivity extends CameraActivity implements OnImageAvailableListener {
+public class MainActivity extends CameraActivity implements OnImageAvailableListener{
     private static final Logger LOGGER = new Logger();
+    TextToSpeech mTTS = null;
+    private final int ACT_CHECK_TTS_DATA = 1000;
 
     private static final int FACE_SIZE = 160;
     private static final int CROP_SIZE = 300;
@@ -74,6 +80,10 @@ public class MainActivity extends CameraActivity implements OnImageAvailableList
     private Integer sensorOrientation;
 
     private Classifier classifier;
+
+    EditText textToSpeak;
+    TextToSpeech googleTTS;
+    Long timeOfSpeakRequest;
 
     private long lastProcessingTimeMs;
     private Bitmap rgbFrameBitmap = null;
@@ -237,6 +247,7 @@ public class MainActivity extends CameraActivity implements OnImageAvailableList
         }
 
         try {
+            takeScreenshot();
             classifier = Classifier.getInstance(getAssets(), FACE_SIZE, FACE_SIZE);
         } catch (Exception e) {
             LOGGER.e("Exception initializing classifier!", e);
@@ -402,4 +413,34 @@ public class MainActivity extends CameraActivity implements OnImageAvailableList
 
         startActivityForResult(intent, requestCode);
     }
+
+    private void takeScreenshot() {
+        Date now = new Date();
+        android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
+
+        try {
+            // image naming and path  to include sd card  appending name you choose for file
+            String mPath = Environment.getExternalStorageDirectory().toString() + "/" + now + ".jpg";
+
+            // create bitmap screen capture
+            View v1 = getWindow().getDecorView().getRootView();
+            v1.setDrawingCacheEnabled(true);
+            Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
+            v1.setDrawingCacheEnabled(false);
+
+            File imageFile = new File(mPath);
+
+            FileOutputStream outputStream = new FileOutputStream(imageFile);
+            int quality = 100;
+            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
+            outputStream.flush();
+            outputStream.close();
+        } catch (Throwable e) {
+            // Several error may come out with file handling or DOM
+            e.printStackTrace();
+        }
+    }
+
 }
+
+
