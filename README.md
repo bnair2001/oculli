@@ -33,7 +33,8 @@ Then to run the API,<br />
 ```$flask run```<br />
 <br />
 #### For Detection mode and Recognition mode:
-...
+Open the android folder in this repo using android studio and build the android app.<br />
+PS: The build may take about 20 minutes
 <br />
 
 ## APK:
