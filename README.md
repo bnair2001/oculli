@@ -37,7 +37,7 @@ Open the android folder in this repo using android studio and build the android 
 PS: The build may take about 20 minutes
 <br />
 ## Demo video:
-[![video link](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](https://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE)
+[![ ](https://img.youtube.com/vi/JqLaqmI6rU8/0.jpg)](https://youtu.be/JqLaqmI6rU8)
 ## APK:
 [Drive link to apk](https://drive.google.com/drive/folders/1uF8OioGizyo107gT7fnVkTcg2GMI27aw?usp=sharing)
 
