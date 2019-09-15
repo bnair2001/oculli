@@ -339,10 +339,13 @@ public class MainActivity extends CameraActivity implements OnImageAvailableList
         if (requestCode == RETURN_NAME) {
                 // A contact was picked.  Here we will just display it
                 // to the user.
+            return;
+            /*
                 newUsername = data.getStringExtra("newUsername");
                 output = String.format("onActivityResult: username: %s\n", newUsername);
                 Log.e("onActivityResult", output);
                 Toast.makeText(this, newUsername, Toast.LENGTH_SHORT).show();
+                */
         }
 
         if (!initialized) {
