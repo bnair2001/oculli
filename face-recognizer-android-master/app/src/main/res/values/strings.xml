@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">face recognizer</string>
+    <string name="app_name">Occuli</string>
     <string name="camera_error">This device doesn\'t support Camera2 API.</string>
     <string name="enter_name">Enter name</string>
     <string name="select_name">Select name</string>
