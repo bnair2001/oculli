@@ -36,9 +36,10 @@ Then to run the API,<br />
 Open the android folder in this repo using android studio and build the android app.<br />
 PS: The build may take about 20 minutes
 <br />
-
+## Demo video:
+[![video link](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](https://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE)
 ## APK:
-[Drive link to apk]()
+[Drive link to apk](https://drive.google.com/drive/folders/1uF8OioGizyo107gT7fnVkTcg2GMI27aw?usp=sharing)
 
 ## Credits:
 [Steve Paul](https://github.com/ST2-EV),&nbsp; [Bharath Nair](https://github.com/bnair2001),&nbsp; [Matt Wang](https://github.com/mooosu)
